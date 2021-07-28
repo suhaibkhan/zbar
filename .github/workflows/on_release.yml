@@ -60,7 +60,7 @@ jobs:
       run:
         autoreconf -vfi
 
-        ./configure --disable-video --disable-nls --with-python=python3
+        ./configure --disable-video --disable-nls --with-python=python3 --with-java
 
     - name: build
       run: |
@@ -126,7 +126,7 @@ jobs:
         autoreconf -vfi
         ./configure LDFLAGS="-static" \
                     --enable-pthread --disable-dependency-tracking \
-                    ${{ matrix.extra }}
+                    --with-java ${{ matrix.extra }}
 
     - name: build
       shell: msys2 {0}
