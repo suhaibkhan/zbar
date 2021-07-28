@@ -101,6 +101,13 @@ jobs:
       CPPFLAGS: -D__USE_MINGW_ANSI_STDIO=1
 
     steps:
+    
+    - uses: actions/setup-java@v2.1.0
+      with:
+        distribution: 'adopt'
+        java-version: '8'
+        java-package: 'jdk'
+    
     - uses: msys2/setup-msys2@v2
       with:
         msystem: ${{ matrix.msystem }}
@@ -114,10 +121,6 @@ jobs:
           autoconf libtool automake gettext make autoconf-archive pkg-config
 
     - uses: actions/checkout@v2
-    - uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '11'
     
     - name: configure
       shell: msys2 {0}
