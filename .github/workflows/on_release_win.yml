@@ -29,15 +29,9 @@ jobs:
 
     env:
       CPPFLAGS: -D__USE_MINGW_ANSI_STDIO=1
-      JAVA_HOME: C:\hostedtoolcache\windows\Java_Adopt_jdk\8.0.292-10\x64
+      #JAVA_HOME: C:\hostedtoolcache\windows\Java_Adopt_jdk\8.0.292-10\x64
 
     steps:
-    
-    - uses: actions/setup-java@v2.1.0
-      with:
-        distribution: 'adopt'
-        java-version: '8'
-        java-package: 'jdk'
     
     - uses: msys2/setup-msys2@v2
       with:
@@ -49,7 +43,7 @@ jobs:
           mingw-w64-${{ matrix.arch }}-imagemagick
           mingw-w64-${{ matrix.arch }}-python
           base-devel git xmlto zip
-          autoconf libtool automake gettext make autoconf-archive pkg-config
+          autoconf libtool automake gettext make autoconf-archive pkg-config jdk8-openjdk
 
     - uses: actions/checkout@v2
     
