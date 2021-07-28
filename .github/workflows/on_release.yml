@@ -91,11 +91,6 @@ jobs:
           - arch: x86_64
             msystem: MINGW64
             grep: x86-64
-          - arch: i686
-            msystem: MINGW32
-            grep: 386
-          - video: DShow
-            extra: --with-directshow
           - video: VfW
             extra:
     defaults:
