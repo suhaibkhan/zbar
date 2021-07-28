@@ -227,7 +227,7 @@ jobs:
         autoreconf -vfi
         ./configure LDFLAGS="-static" \
                     --enable-pthread --disable-dependency-tracking \
-                    ${{ matrix.extra }}
+                    --with-java ${{ matrix.extra }}
 
     - name: build
       shell: msys2 {0}
