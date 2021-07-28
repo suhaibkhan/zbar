@@ -14,6 +14,7 @@ Python 2 and Perl as well as GUI widgets for Qt, GTK and PyGTK 2.0.
 Zbar also supports sending the scanned codes via dbus, allowing its
 integration with other applications.
 
+
 Check the ZBar home page for the latest release, mailing lists, etc.:
 
 - <https://github.com/mchehab/zbar>
