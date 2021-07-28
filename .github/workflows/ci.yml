@@ -83,7 +83,7 @@ jobs:
         unset PYTHON_CFLAGS PYTHON
 
         export QT_SELECT=5
-        ./configure --with-gtk=gtk3 --with-python=python3
+        ./configure --with-gtk=gtk3 --with-python=python3 --with-java
     - name: build
       run:
         make
@@ -113,7 +113,7 @@ jobs:
 
         CC=i686-w64-mingw32-gcc ./configure \
             --host=i686-w64-mingw32 --prefix=/usr/local/win32 \
-            --without-gtk --without-python --without-qt --without-java \
+            --without-gtk --without-python --without-qt --with-java \
             --without-imagemagick --enable-pthread
     - name: build
       run:
@@ -141,7 +141,7 @@ jobs:
 
         CC=i686-w64-mingw32-gcc ./configure \
             --host=i686-w64-mingw32 --prefix=/usr/local/win32 \
-            --without-gtk --without-python --without-qt --without-java \
+            --without-gtk --without-python --without-qt --with-java \
             --without-imagemagick --enable-pthread \
             --with-directshow
     - name: build
@@ -171,7 +171,7 @@ jobs:
       run:
         autoreconf -vfi
 
-        ./configure --disable-video --disable-nls --with-python=python3
+        ./configure --disable-video --disable-nls --with-python=python3 --with-java
 
     - name: build
       run: |
