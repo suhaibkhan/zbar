@@ -1,0 +1,88 @@
+name: Upload windows only binaries to release
+
+on:
+  release:
+    types:
+      - created
+      - published
+      - edited
+
+  workflow_dispatch:
+
+jobs:
+  Windows:
+    name: Build for Windows
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [x86_64]
+        video: [VfW]
+        include:
+          - arch: x86_64
+            msystem: MINGW64
+            grep: x86-64
+          - video: VfW
+            extra:
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    env:
+      CPPFLAGS: -D__USE_MINGW_ANSI_STDIO=1
+      JAVA_HOME: /c/hostedtoolcache/windows/Java_Adopt_jdk/8.0.292-10/x64
+      
+    steps:
+    
+    - uses: actions/setup-java@v2.1.0
+      with:
+        distribution: 'adopt'
+        java-version: '8'
+        java-package: 'jdk'
+    
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: ${{ matrix.msystem }}
+        update: false
+        install: >-
+          mingw-w64-${{ matrix.arch }}-gcc
+          mingw-w64-${{ matrix.arch }}-iconv
+          mingw-w64-${{ matrix.arch }}-imagemagick
+          mingw-w64-${{ matrix.arch }}-python
+          base-devel git xmlto zip
+          autoconf libtool automake gettext make autoconf-archive pkg-config
+
+    - uses: actions/checkout@v2
+    
+    - name: configure
+      shell: msys2 {0}
+      run: |
+        export JAVA_HOME=/c/hostedtoolcache/windows/Java_Adopt_jdk/8.0.292-10/x64
+        export PATH=$PATH:$JAVA_HOME/bin
+        echo $PATH
+        echo $JAVA_HOME
+        which java
+        java -version
+        autoreconf -vfi
+        ./configure LDFLAGS="-static" \
+                    --enable-pthread --disable-dependency-tracking \
+                    --with-java ${{ matrix.extra }}
+
+    - name: build
+      shell: msys2 {0}
+      run:
+        make
+    - name: generating zip
+      shell: msys2 {0}
+      run: |
+        DESTDIR=${PWD}/win_${{ matrix.arch }}-${{ matrix.video }} make install
+        (cd ${PWD}/win_${{ matrix.arch }}-${{ matrix.video }}; zip -r ../zbar-win_${{ matrix.arch }}-${{ matrix.video }}.zip .)
+
+    - name: upload
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses:  mchehab/upload-release-asset@v1.0.3
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./zbar-win_${{ matrix.arch }}-${{ matrix.video }}.zip
+        asset_name: zbar-win_${{ matrix.arch }}-${{ matrix.video }}.zip
+        asset_content_type: application/gzip
