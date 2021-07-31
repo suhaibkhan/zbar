@@ -43,7 +43,7 @@ jobs:
           mingw-w64-${{ matrix.arch }}-imagemagick
           mingw-w64-${{ matrix.arch }}-python
           base-devel git xmlto zip
-          autoconf libtool automake gettext make autoconf-archive pkg-config jdk8-openjdk
+          autoconf libtool automake gettext make autoconf-archive pkg-config
 
     - uses: actions/checkout@v2
     
