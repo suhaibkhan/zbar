@@ -24,7 +24,7 @@ jobs:
       run:
         autoreconf -vfi
 
-        ./configure --disable-video --disable-nls --with-python=python3 --with-java
+        ./configure --disable-doc --disable-video --disable-nls --with-python=python3 --with-java
 
     - name: build
       run: |
