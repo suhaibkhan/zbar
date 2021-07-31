@@ -50,6 +50,8 @@ jobs:
     - name: configure
       shell: msys2 {0}
       run: |
+        echo $PATH
+        echo $JAVA_HOME
         autoreconf -vfi
         ./configure LDFLAGS="-static" \
                     --enable-pthread --disable-dependency-tracking \
