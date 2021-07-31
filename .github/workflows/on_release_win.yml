@@ -61,7 +61,7 @@ jobs:
         echo $PATH
         echo $JAVA_HOME
         which java
-        java --version
+        java -version
         autoreconf -vfi
         ./configure LDFLAGS="-static" \
                     --enable-pthread --disable-dependency-tracking \
