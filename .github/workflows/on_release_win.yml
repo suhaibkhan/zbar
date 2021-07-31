@@ -63,7 +63,7 @@ jobs:
         which java
         java -version
         autoreconf -vfi
-        ./configure LDFLAGS="-static" \
+        ./configure \
                     --enable-pthread --disable-dependency-tracking \
                     --with-java ${{ matrix.extra }}
 
