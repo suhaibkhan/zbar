@@ -29,7 +29,6 @@ jobs:
 
     env:
       CPPFLAGS: -D__USE_MINGW_ANSI_STDIO=1
-      #JAVA_HOME: C:\hostedtoolcache\windows\Java_Adopt_jdk\8.0.292-10\x64
 
     steps:
     
@@ -52,6 +51,8 @@ jobs:
       run: |
         echo $PATH
         echo $JAVA_HOME
+        which java
+        java --version
         autoreconf -vfi
         ./configure LDFLAGS="-static" \
                     --enable-pthread --disable-dependency-tracking \
