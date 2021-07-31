@@ -780,7 +780,7 @@ AS_IF([test "x$with_java" != "xno"],
    CPPFLAGS="$CPPFLAGS $JAVA_CFLAGS"
    AC_CHECK_HEADERS([jni.h], [], [have_java="no"])
    CPPFLAGS="$CPPFLAGS_save"
-   AS_IF([test "x$have_java" != "xno"],
+   AS_IF([test "x$have_java" = "xno"],
      [with_java="yes"],
      [test "x$with_java" = "xyes"],
      [AC_MSG_FAILURE([unable to find Java JNI! ensure CFLAGS are set appropriately or configure --without-java])],
