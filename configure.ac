@@ -772,6 +772,12 @@ AC_ARG_VAR([JAVA_CFLAGS], [compiler flags for building JNI extensions])
 AS_IF([test "x$JAVA_CFLAGS" = "x" && test "x$JAVA_HOME" != "x"],
   [JAVA_CFLAGS="-I$JAVA_HOME/include"])
 
+AS_IF([test -d "$JAVA_HOME/include/win32"],
+  [JAVA_CFLAGS="$JAVA_CFLAGS -I$JAVA_HOME/include/win32"])
+
+AS_IF([test -d "$JAVA_HOME/include/darwin"],
+  [JAVA_CFLAGS="$JAVA_CFLAGS -I$JAVA_HOME/include/darwin"])
+
 AS_IF([test -d "$JAVA_HOME/include/linux"],
   [JAVA_CFLAGS="$JAVA_CFLAGS -I$JAVA_HOME/include/linux"])
 
@@ -780,7 +786,7 @@ AS_IF([test "x$with_java" != "xno"],
    CPPFLAGS="$CPPFLAGS $JAVA_CFLAGS"
    AC_CHECK_HEADERS([jni.h], [], [have_java="no"])
    CPPFLAGS="$CPPFLAGS_save"
-   AS_IF([test "x$have_java" = "xno"],
+   AS_IF([test "x$have_java" != "xno"],
      [with_java="yes"],
      [test "x$with_java" = "xyes"],
      [AC_MSG_FAILURE([unable to find Java JNI! ensure CFLAGS are set appropriately or configure --without-java])],
