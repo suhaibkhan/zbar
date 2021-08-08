@@ -64,7 +64,7 @@ jobs:
         java -version
         autoreconf -vfi
         ./configure \
-                    --enable-pthread --disable-dependency-tracking \
+                    --disable-pthread --without-jpeg --disable-dependency-tracking \
                     --with-java ${{ matrix.extra }}
 
     - name: build
