@@ -5,6 +5,7 @@ java_DATA = zbar.jar
 
 java_LTLIBRARIES = libzbarjni.la
 libzbarjni_la_CPPFLAGS = $(JAVA_CFLAGS) $(AM_CPPFLAGS)
+libzbarjni_la_LDFLAGS = -no-undefined
 libzbarjni_la_LIBADD = $(abs_top_builddir)/zbar/libzbar.la
 
 nodist_libzbarjni_la_SOURCES = zbarjni.h
